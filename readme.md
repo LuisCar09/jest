@@ -13,7 +13,7 @@ La aplicación de administración de productos tendrá las siguientes funciones 
 - resetProducts(): reinicia la lista de productos y el id.
 - addProduct(name, price): agrega un producto a la lista de productos.
 - removeProduct(id): elimina un producto de la lista de productos.
-- getProducts(): devuelve todos los productos.
+- getProducts(): devuelve todos los productos. 
 - resetProducts(): reinicia la lista de productos.
 - getProduct(id): devuelve un producto por su id.
 - updateProduct(id, name, price): actualiza un producto por su id.
