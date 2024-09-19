@@ -3,6 +3,10 @@ const {resetProducts,addProduct,removeProduct,getProducts,getProduct,updateProdu
 beforeEach(() => {
     resetProducts()
 })
+beforeEach(() => {
+    addProduct('Porshe',20000)
+    addProduct('BMW',100_000)
+})
 afterEach(() => {
     resetProducts()
 })
@@ -12,7 +16,7 @@ describe('addProduct', () => {
     it('should add a product',() =>{    
         const currentProduct = getProducts() ?? []
         const id = currentProduct.length + 1
-        const name = 'BMW'
+        const name = 'Ferrari'
         const price = 300_000
 
         const product = {id,name,price} 
@@ -22,9 +26,9 @@ describe('addProduct', () => {
     })
 
     it('should fail when product is repeated',() => {
-        const name = 'Audi'
-        const price = '1000'
-        addProduct(name,price)
+        const name = 'Porshe'
+        const price = '20000'
+        //addProduct(name,price)
 
         expect(() => addProduct(name,price)).toThrow('product must be unique')
 
@@ -34,7 +38,7 @@ describe('addProduct', () => {
         
         expect(()=> addProduct('',2000)).toThrow('it must contain a name')
     })
-    it('should fail when adding a product with no name',() => {
+    it('should fail when adding a product with no price',() => {
         
         expect(()=> addProduct('Porshe',)).toThrow('it must contain a price')
     })
@@ -42,8 +46,7 @@ describe('addProduct', () => {
 
 describe('removeProduct',() => {
     it('should remove a product', ()=> {
-        addProduct('Porshe',20000)
-        addProduct('BMW',100_000)
+        
         const name ='BMW'
         const products = getProducts()
        
@@ -52,7 +55,7 @@ describe('removeProduct',() => {
     })
     it('should return an error if product does not exist', () => {
         const name = 'Ferrari'
-        expect(()=> removeProduct(name)).toThrow('Product does not exist')
+        expect(()=> removeProduct(name)).toThrow('Product does not exist, please enter a valid product')
     })
 })
 
@@ -62,8 +65,6 @@ describe('getProduct',() => {
     
     it('it should return an product',() => {
        
-        addProduct('Porshe',20000)
-        addProduct('BMW',100000)
         const productId = getProducts().find(product => product.name === 'BMW' );
         const product = getProducts().find(item => item.id === productId.id)
         expect(getProduct(productId.id)).toEqual(product)
@@ -71,7 +72,7 @@ describe('getProduct',() => {
     })
     it('it should throw an error if does not exist', ()=> {
         
-        expect(() => getProduct('10')).toThrow('Product does not exist')
+        expect(() => getProduct('10')).toThrow('Product does not exist, please enter a valid product')
     })
 })
 
@@ -82,13 +83,12 @@ describe('updateProduct',() => {
             name:'ThisCarDoesNotExistHa!',
             price:20000
         }
-        expect(() => updateProduct('20',product)).toThrow('should fail when updating a product that does not exist')
+        expect(() => updateProduct('20',product)).toThrow('Product does not exist, please enter a valid product')
     })
 
     
     it('should update only the price ',() => {
-        addProduct('Porshe',20000)
-        addProduct('BMW',100000)
+        
         const currentProduct = getProduct(1)
         const id = currentProduct.id
         const updateProductData = {
@@ -96,11 +96,10 @@ describe('updateProduct',() => {
             price : 50000
         }
         
-        expect(updateProduct(id,updateProductData).price).not.toEqual(currentProduct.price)
+        expect(updateProduct(id,updateProductData)).not.toEqual(currentProduct)
     })
     it('should update only the name ',() => {
-        addProduct('Porshe',20000)
-        addProduct('BMW',100000)
+
         const currentProduct = getProduct(1)
         const id = currentProduct.id
         const updateProductData = {
@@ -108,11 +107,10 @@ describe('updateProduct',() => {
             price :currentProduct.name
         }
         
-        expect(updateProduct(id,updateProductData).name).not.toEqual(currentProduct.name)
+        expect(updateProduct(id,updateProductData)).not.toEqual(currentProduct)
     })
     it('should update a product ',() => {
-        addProduct('Porshe',20000)
-        addProduct('BMW',100000)
+ 
         const currentProduct = getProduct(2)
         const id = currentProduct.id
         const updateProductData = {

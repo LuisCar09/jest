@@ -26,16 +26,17 @@ const addProduct = (name,price) => {
 }
 
 const removeProduct = (name) => {
-    const arrayFiltered = products.filter(product => product.name !== name)
-    
-    if (arrayFiltered.length === 0) throw new Error('Product does not exist')
+    const findProduct = products.findIndex(product =>  product.name === name) 
+    products = products.filter(product => product.name !== name)
 
-    return products = arrayFiltered
+    if (findProduct === -1){ throw new Error('Product does not exist, please enter a valid product')}
+
+    return products 
 }
 
 const getProduct = (id) => {
     const product = products.find(product => product.id === id)
-    if (!product) throw new Error('Product does not exist')
+    if (!product) throw new Error('Product does not exist, please enter a valid product')
     
     return product
 }
@@ -44,7 +45,7 @@ const updateProduct = (id,properties) => {
     const findIndex = products.findIndex(product => product.id === id)
     const {name,price} = properties
 
-    if (findIndex === -1) throw new Error('should fail when updating a product that does not exist')
+    if (findIndex === -1) throw new Error('Product does not exist, please enter a valid product')
     
     products[findIndex] = {
         ...products[findIndex],
