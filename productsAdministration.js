@@ -2,6 +2,7 @@ let products = []
 // {id:1,name:'BMW'},{id:2,name:'Mercedes'},{name:'Audi'}
 let counter = 1
 const resetProducts = () => {
+    counter = 1
     return products = []
 }
 

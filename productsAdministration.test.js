@@ -66,15 +66,22 @@ describe('removeProduct',() => {
 describe('getProduct',() => {
     
     it('it should return an product',() => {
+       
         addProduct('Porshe',20000)
         addProduct('BMW',100000)
-        //console.log(getProducts());
+       
         
-        const id = 5;
-        const product = getProducts().find(item => item.id === id)
-        //console.log(product);
+        const productId = getProducts().find(product => product.name === 'BMW' );
         
-        expect(getProduct(id)).toEqual(product)
+        
+        const product = getProducts().find(item => item.id === productId.id)
+        
+        
+        expect(getProduct(productId.id)).toEqual(product)
 
+    })
+    it('it should throw an error if does not exist', ()=> {
+        
+        expect(() => getProduct('10')).toThrow('Product does not exis')
     })
 })
